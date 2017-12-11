@@ -1,0 +1,21 @@
+
+
+Authors : W. van Ackooij and J. Malick,
+Title : Gradient Formulae for nonlinear probabilistic constraints with {G}aussian and {G}aussian-Like Distributions,
+Journal : SIAM Journal on Optimization, number 4, volume 24, pages 1864-1889,
+year : 2014
+
+Authors : W. van Ackooij and R. Henrion,
+Title : Gradient Formulae for nonlinear probabilistic constraints with {G}aussian and {G}aussian-Like Distributions,
+Journal : SIAM Journal on Optimization, number 4, volume 24, pages 1864-1889,
+year : 2014
+
+Authors= W. van Ackooij and R. Henrion,
+Title= Sub gradient formulae for probability functions of random inequality systems under gaussian distribution,
+Journal : SIAM Journal on Uncertainty Quantification, number 1, volume 5, pages 63-87,
+Year : 2017
+
+Authors = A. Hantoute and R. Henrion and P. Pérez-Aros,
+Title= Subdifferential characterization of continuous probability functions under Gaussian distribution},
+Journal : Submitted preprint: \url{https://arxiv.org/pdf/1705.10160.pdf} ,pages 1-27,
+Year : 2017
