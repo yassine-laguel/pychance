@@ -30,7 +30,7 @@ storing the values of phi and plotting them.
 The file NegativeDomains.py, MonteCarlo, AntitheticMonteCarlo and
 OptimizedMonteCarlo are aimed at computating phi'svalue.
 	Warning : If you want to solve an example of problem, don't forget to import the InputFile in
-  		  NegativeDomains.py, MonteCarlo, AntitheticMonteCarlo and
-		  OptimizedMonteCarlo
+  		  NegativeDomains.py, MonteCarlo.py, AntitheticMonteCarlo.py and
+		  OptimizedMonteCarlo.py and ConvexityThreshold.py
 
 The file Threshold.py is aimed at computing the value p^*
