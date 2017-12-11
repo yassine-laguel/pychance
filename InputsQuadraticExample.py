@@ -54,10 +54,19 @@ class InputClass:
 
         # Choleski Matrix appearing in radial decoposition of xi
         self.L = np.identity(2)
+        self.L[0,0] = 0.5
+        self.L[1,1] = 0.9
+        c = 0.3
+        self.L[1,0] = c
+        self.L[0,1] = c
+        self.L = 0.15 * 0.15 * self.L
+        #print(self.L)
+        self.L = np.linalg.cholesky(self.L)
+        
         
         ### We are here able to compute directly rho. In that way, the class Negative_Domains
         ### won't be needed for the computation of IP( g(x,\xi) <= 0 ).
-        self.rho_given = False # rho_given must have true value iff the user fills in the rho method
+        self.rho_given = True # rho_given must have true value iff the user fills in the rho method
                                # Speeds the resolution
         self.g_convex_in_z = True  # g_convex_in_z must be true iff g is convex in its second variable
                                    # Speeds the resolution
@@ -86,7 +95,7 @@ class InputClass:
         
         self.rotation =  ortho.rvs(dim=2)
 
-        print("Ensemble des données chargées !\n")
+        print("Data loaded !\n")
 
     ### function g chosen -- unused here since rho is given
     def g(self, x, z):
@@ -148,6 +157,6 @@ class InputClass:
         #print(u[0,0])
         u[1,0] = abs((u[1,0]-1))**3 + 0.2
         res = np.diag(u.A1)
-        res = np.dot(np.transpose(self.rotation),np.dot(res,self.rotation))
+        #res = np.dot(np.transpose(self.rotation),np.dot(res,self.rotation))
         return res
 

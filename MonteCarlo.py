@@ -37,9 +37,11 @@
 #from Inputs import *
 # Comment the previous line and uncomment the following one
 # if you want to test the quadratic example
+from chance_utils import  *
 from InputsQuadraticExample import * 
 import numpy as np
 from NegativeDomains import *
+
 
 class compute_phi_by_monte_carlo :
     
@@ -50,13 +52,6 @@ class compute_phi_by_monte_carlo :
         ### Number of iterations of the Monte-Carlo method
         self.nb_iterations = nb_iterations
 
-    ### Returns a random vector v, uniformly distributed belonging to the sphere. 
-    def random_v(self):
-        v = np.random.normal(0.0,1,self.inputs.m)
-        v = v/np.linalg.norm(v)
-        v = np.matrix(v)
-        v = np.transpose(v)
-        return v
 
     ### Returns sum(Fr(b_i) - Fr(a_i)) where [a_i,b_i] are domains where t->g(x+tLv) is non-positive
     def ray(self,x,v): 
@@ -75,7 +70,7 @@ class compute_phi_by_monte_carlo :
         res = 0 
     
         for i in range(self.nb_iterations):
-            v = self.random_v()
+            v = random_v(self.inputs.m)
             v = np.matrix(v)
             if self.inputs.rho_given :
                 res += self.inputs.Fr(self.inputs.rho(x,v))

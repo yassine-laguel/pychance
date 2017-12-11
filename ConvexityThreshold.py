@@ -25,10 +25,11 @@
 #   This file is aimed computing the threshold p* such that the field M(p) := {x, phi(x)>p}
 #   is convex for all p>p*. The method "compute" computes the threshold p*. 
 #
+from chance_utils import *
 
-#from InputsQuadraticExample import *
-from InputsSecondQuadraticExample import *
-from scipy import integrate
+from InputsQuadraticExample import *
+# from InputsWimQuadraticExample import *
+# from scipy import integrate
 from scipy import special as sp
 import math
 
@@ -89,7 +90,51 @@ class ConvexityThreshold :
             if counter%1000 == 0:
                 print(counter)
             counter += 1
-        return best_threshold 
+        return best_threshold
+
+    # return true if we find rho(x,v)> t for a lot of direction v tested
+    def above_threshold(self, x, t, nb_iterations=1, rotation_order=20):
+        res = True
+        rotation = generate_n_order_rotation(self.inputs.m, n=rotation_order)
+        for i in range(nb_iterations):
+            v = random_v(self.inputs.m)
+            rotation_power = rotation.copy()
+            for j in range(rotation_order):
+                v2 = v.copy()
+                if j > 0:
+                    rotation_power = np.dot(rotation_power, rotation)
+                    v = np.dot(rotation_power, v2)
+                if self.inputs.rho_given:
+                    # print(self.inputs.rho(x,v))
+                    res = res and self.inputs.rho(x, v) >= t
+                else:
+                    print("Error, rho is not given, we cant plot the designated level-set of rho")
+
+        return res
+
+    # return true if we find rho(x,v)> t for a lot of direction v tested such that <v|direction> is positive
+    def above_directed_threshold(self, x, direction, t, nb_iterations=1, rotation_order=20):
+        res = True
+        for i in range(nb_iterations):
+            v = random_v(self.inputs.m)
+            rotation = generate_n_order_rotation(self.inputs.m, n=rotation_order)
+            rotation_power = rotation.copy()
+            for j in range(rotation_order):
+                v2 = v.copy()
+                if j > 0:
+                    rotation_power = np.dot(rotation_power, rotation)
+                    v2 = np.dot(rotation_power, v2)
+                if self.inputs.rho_given:
+                    if np.dot(np.transpose(v2), direction)[0, 0] > 0:
+                        # print(self.inputs.rho(x,v))
+                        res = res and self.inputs.rho(x, v) >= t
+                else:
+                    print("Error, rho is not given, we cant plot the designated level-set of rho")
+
+        return res
+
+
+
 
     ###################################################################
     ###The following methods are useful for the computation of delta###
@@ -104,9 +149,7 @@ class ConvexityThreshold :
         
         res = self.regularized_incomplete_beta((self.inputs.m-1)/2.0, 0.5, math.sin(math.acos(delta))**2) 
         res += -1.0 + 2*q
-        return res;
+        return res
 
-seuil = ConvexityThreshold()
-print(seuil.compute())    
     
 

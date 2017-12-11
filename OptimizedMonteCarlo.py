@@ -39,13 +39,16 @@
 #   an example of input file
 #
 
+import numpy as np
+import math
+from chance_utils import *
+
 #from Inputs import *
 # Comment the previous line and uncomment the following one
 # if you want to test the quadratic example
 from InputsQuadraticExample import * 
 from NegativeDomains import *
-import numpy as np
-import math
+
 
 class compute_phi_by_optimized_monte_carlo():
     
@@ -59,16 +62,7 @@ class compute_phi_by_optimized_monte_carlo():
         
         # Lowest Integer p > 0 such that the rotation O of the algorithm  
         # satisfies O^p = Identity matrix
-        self.order = 20 
-    
-        
-    ### Returns a random vector v, uniformly distributed belonging to the sphere. 
-    def random_v(self):
-        v = np.random.normal(0.0,1,self.inputs.m)
-        v = v/np.linalg.norm(v)
-        v = np.matrix(v)
-        v = np.transpose(v)
-        return v
+        self.order = 20
 
     ### Returns sum(Fr(b_i) - Fr(a_i)) where [a_i,b_i] are domains where t->g(x+tLv) is non-positive
     def ray(self,x,v): 
@@ -81,24 +75,14 @@ class compute_phi_by_optimized_monte_carlo():
         for i in range(n):
             S = S + self.inputs.Fr((intervals[i])[1]) - self.inputs.Fr((intervals[i])[0])
         return S
-    
-    def generate_n_order_rotation(self,n):
-        angle = 2*math.pi/n
-        res = np.matlib.zeros((self.inputs.m, self.inputs.m))
-    
-        res[0,0] = math.cos(angle)
-        res[0,1] = -1*math.sin(angle)
-        res[1,0] = math.sin(angle)
-        res[1,1] = math.cos(angle)
-    
-        return res
+
 
     def phi(self,x):
         res = 0
         nb_iterations2 = self.nb_iterations / self.order
-        rotation =  self.generate_n_order_rotation(self.order)
+        rotation = generate_n_order_rotation(self.inputs.m, n=self.order)
         for i in range(nb_iterations2):
-            w = self.random_v()
+            w = random_v(self.inputs.m)
             rotation_power = rotation.copy()
             for index in range(self.order):
                 w2 = w.copy()

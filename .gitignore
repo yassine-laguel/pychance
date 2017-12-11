@@ -1,0 +1,17 @@
+.ipynb_checkpoints/
+AntitheticMonteCarlo.pyc
+ConvexityThreshold.pyc
+DataStorage.pyc
+InputsQuadraticExample.pyc
+MonteCarlo.pyc
+NegativeDomains.pyc
+OptimizedMonteCarlo.pyc
+ResultsPlot.pyc
+__pycache__/
+testFile.ipynb
+new-test-file.ipynb
+.idea/misc.xml
+.idea/workspace.xml
+.idea/personnal-code.iml
+chance_utils.pyc
+valeurs_phi.json

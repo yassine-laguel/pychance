@@ -38,13 +38,16 @@
 #   an example of input file
 #
 
+import numpy as np
+import math
+from chance_utils import *
+
 #from Inputs import *
 # Comment the previous line and uncomment the following one
 # if you want to test the quadratic example
 from InputsQuadraticExample import * 
 from NegativeDomains import *
-import numpy as np
-import math
+
 
 class compute_phi_by_antithetic_monte_carlo():
     
@@ -54,16 +57,7 @@ class compute_phi_by_antithetic_monte_carlo():
         self.inputs = InputClass()
 
         # Number of iterations of the Monte-Carlo method
-        self.nb_iterations = nb_iterations 
-    
-        
-    ### Returns a random vector v, uniformly distributed belonging to the sphere. 
-    def random_v(self):
-        v = np.random.normal(0.0,1,self.inputs.m)
-        v = v/np.linalg.norm(v)
-        v = np.matrix(v)
-        v = np.transpose(v)
-        return v
+        self.nb_iterations = nb_iterations
 
     ### Returns sum(Fr(b_i) - Fr(a_i)) where [a_i,b_i] are domains where t->g(x+tLv) is non-positive
     def ray(self,x,v): 
@@ -100,7 +94,7 @@ class compute_phi_by_antithetic_monte_carlo():
         nb_iterations_antithetic = 2**self.inputs.m
         nb_iterations2 = self.nb_iterations / nb_iterations_antithetic
         for i in range(nb_iterations2):
-            w = self.random_v()
+            w = random_v(self.inputs.m)
             for index in range(nb_iterations_antithetic):
                 v = self.generate_system(w,index)
                 if self.inputs.rho_given :

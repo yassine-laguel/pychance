@@ -30,7 +30,7 @@ import json
 
 
 class DataStorer :
-    def __init__(self, filename = "No_file_for_now", x_min = -2.0 ,x_max = 6.0, y_min = -3.0, y_max = 3.0, method = 0, nb_points = 10, nb_iterations = 100):
+    def __init__(self, filename = "No_file_for_now", x_min = -100.0 ,x_max = 100.0, y_min = -100.0, y_max = 100.0, method = 0, nb_points = 10, nb_iterations = 100):
         
         self.filename = filename
         self.nb_points = nb_points
